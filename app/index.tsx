@@ -6,7 +6,8 @@ import React, { useState } from 'react'
 import { Image, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useToast } from 'react-native-toast-notifications'
-import { useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil';
+import { Ionicons } from '@expo/vector-icons'
 
 const Onboarding = () => {
     const toast = useToast();
@@ -35,12 +36,13 @@ const Onboarding = () => {
                 }}
             >
                 <View className='h-full justify-center px-6 font-rubik'>
-                    <Image
-                        source={require('@/assets/images/welcome.png')}
-                        style={{ width: 200, height: 200 }}
-                        resizeMode='contain'
+                    <Ionicons
+                        name='chatbubble-ellipses-outline'
+                        size={50}
+                        color='#8A2BE2'
+                        className='mt-8'
                     />
-                    <Text className='text-xl font-bold font-rubik'>
+                    <Text className='text-xl mt-5 font-bold font-rubik'>
                         <Text>Welcome to </Text>
                         <Text className=' text-violet-600'>
                             ConnectSphere

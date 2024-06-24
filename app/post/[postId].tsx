@@ -86,7 +86,7 @@ const PostView = () => {
                             <View>
                                 <View className='p-2 space-y-2'>
                                     <View>
-                                        <Text className='text-lg font-medium font-rubikmedium'>{post?.title}</Text>
+                                        <Text className='text-xl font-medium font-semibold'>{post?.title}</Text>
                                     </View>
                                     <View>
                                         <Text className='text-sm'>{post?.body}</Text>
