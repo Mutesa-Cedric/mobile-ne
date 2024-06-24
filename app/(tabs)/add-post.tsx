@@ -16,13 +16,45 @@ const AddPost = () => {
     });
 
     const handleAddPost = async () => {
-        if (!formData.title || !formData.body) {
+        const specialCharStartPattern = /^[!@#\$%\^\&*\)\(+=._-]/; // Adjust pattern based on special characters
+    
+        if (!formData.title.trim() || !formData.body.trim()) {
             toast.show("Please fill in all fields", {
                 type: 'danger'
             });
             return;
         }
-
+    
+        if (specialCharStartPattern.test(formData.title.charAt(0))) {
+            toast.show("Title cannot start with a special character", {
+                type: 'danger'
+            });
+            return;
+        }
+    
+        if (specialCharStartPattern.test(formData.body.charAt(0))) {
+            toast.show("Body cannot start with a special character", {
+                type: 'danger'
+            });
+            return;
+        }
+    
+        // Optional: Add length checks if needed
+        const maxLength = 280; // Adjust as per your requirements
+        if (formData.title.length > maxLength) {
+            toast.show(`Title cannot be longer than ${maxLength} characters`, {
+                type: 'danger'
+            });
+            return;
+        }
+    
+        if (formData.body.length > maxLength+200) {
+            toast.show(`Body cannot be longer than ${maxLength+200} characters`, {
+                type: 'danger'
+            });
+            return;
+        }
+    
         addPost(formData);
     }
 
