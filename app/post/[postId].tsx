@@ -5,7 +5,7 @@ import { Post } from '@/types';
 import { Ionicons } from '@expo/vector-icons';
 import { usePathname, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useToast } from 'react-native-toast-notifications';
@@ -23,8 +23,9 @@ const PostView = () => {
     }, [pathname]);
 
     async function getPostData() {
+        if(!postId) return;
         setFetchingPost(true);
-        
+
         try {
             const postsRes = await axios.get(`/posts/${postId}`);
             const commentsRes = await axios.get(`/posts/${postId}/comments`);
@@ -55,9 +56,7 @@ const PostView = () => {
                     <ActivityIndicator size='large' color='blue' />
                 </View>
                 : post &&
-                <ScrollView
-                    className='bg-white px-3 pb-3'
-                >
+                <>
                     <View className='flex-row justify-between p-2' >
                         <TouchableOpacity
                             onPress={() => router.push('/posts')}
@@ -74,30 +73,33 @@ const PostView = () => {
                             containerStyles='border-red-500 w-32 py-1'
                         />
                     </View >
-                    <View className='p-2 space-y-2'>
-                        <View>
-                            <Text className='text-lg font-medium font-rubikmedium'>{post?.title}</Text>
-                        </View>
-                        <View>
-                            <Text className='text-sm'>{post?.body}</Text>
-                        </View>
-                        <FlatList
-                            data={post?.comments}
-                            keyExtractor={(item) => item.id.toString()}
-                            renderItem={({ item }) => (
-                                <View className='p-2 mb-4 border border-gray-200 rounded-md'>
-                                    <Text className='text-lg font-medium'>{item.name}</Text>
-                                    <Text className='text-base text-gray-700'>{item.body}</Text>
-                                    <Text className='text-sm text-gray-700 italic font-medium pt-3'>BY: {item.email}</Text>
+
+                    <FlatList
+                        data={post?.comments}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item }) => (
+                            <View className='p-2 mb-4 border border-gray-200 rounded-md'>
+                                <Text className='text-lg font-medium'>{item.name}</Text>
+                                <Text className='text-base text-gray-700'>{item.body}</Text>
+                                <Text className='text-sm text-gray-700 italic font-medium pt-3'>BY: {item.email}</Text>
+                            </View>
+                        )}
+                        ListHeaderComponent={() => (
+                            <View>
+                                <View className='p-2 space-y-2'>
+                                    <View>
+                                        <Text className='text-lg font-medium font-rubikmedium'>{post?.title}</Text>
+                                    </View>
+                                    <View>
+                                        <Text className='text-sm'>{post?.body}</Text>
+                                    </View>
                                 </View>
-                            )}
-                            ListHeaderComponent={() => (
                                 <Text className='text-lg pb-2'>Comments({post?.comments?.length})</Text>
-                            )
-                            }
-                        />
-                    </View>
-                </ScrollView>
+                            </View>
+                        )
+                        }
+                    />
+                </>
             }
         </SafeAreaView >
     )

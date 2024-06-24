@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { Asset } from 'expo-asset';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -26,6 +27,11 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      Asset.loadAsync([
+        require("../assets/images/welcome.png"),
+        require('../assets/images/no-data.png'),
+        require('../assets/images/profile.png'),
+      ]);
     }
   }, [loaded]);
 
