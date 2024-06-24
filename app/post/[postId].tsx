@@ -8,13 +8,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useToast } from 'react-native-toast-notifications';
 
 const PostView = () => {
     const router = useRouter();
     const { deletePost, deletingPost } = usePosts();
     const pathname = usePathname();
-    const toast = useToast();
 
     const [post, setPost] = useState<Post | null>(null);
     const [fetchingPost, setFetchingPost] = useState<boolean>(true);

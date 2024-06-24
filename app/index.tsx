@@ -1,6 +1,5 @@
 import CustomButton from '@/components/CustomButton'
 import CustomInput from '@/components/CustomInput'
-import WelcomeSvg from '@/components/WelcomeSvg'
 import { usernameState } from '@/store'
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
@@ -35,11 +34,11 @@ const Onboarding = () => {
                     height: "100%"
                 }}
             >
-                <View className='h-full items-center justify-center px-6 font-rubik'>
+                <View className='h-full justify-center px-6 font-rubik'>
                     <Image
                         source={require('@/assets/images/welcome.png')}
                         style={{ width: 200, height: 200 }}
-                        className='rounded-full'
+                        resizeMode='contain'
                     />
                     <Text className='text-xl font-bold font-rubik'>
                         <Text>Welcome to </Text>
@@ -47,7 +46,7 @@ const Onboarding = () => {
                             ConnectSphere
                         </Text>
                     </Text>
-                    <Text className='text-gray-500 text-center mt-3'>
+                    <Text className='text-gray-500  mt-3'>
                         Stay connected to the world by creating posts, viewing posts, sharing insights through comments, and others
                     </Text>
                     <View className='mt-8 w-full'>

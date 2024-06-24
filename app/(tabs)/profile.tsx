@@ -1,13 +1,15 @@
 import CustomButton from '@/components/CustomButton';
-import { usernameState } from '@/store';
+import { bookmarksState, usernameState } from '@/store';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Image, SafeAreaView, View, Text } from 'react-native';
 import { useRecoilState } from 'recoil';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile() {
     const [username, setUsername] = useRecoilState(usernameState);
     const router = useRouter();
+    const [, setBookmarks] = useRecoilState(bookmarksState)
 
 
     return (
@@ -18,7 +20,9 @@ export default function Profile() {
                 />
                 <Text className='text-center text-2xl font-semibold text-gray-700'>{username}</Text>
                 <CustomButton
-                    handlePress={() => {
+                    handlePress={async () => {
+                        await AsyncStorage.removeItem('bookmarks');
+                        setBookmarks([]);
                         setUsername('');
                         router.push("/");
                     }}

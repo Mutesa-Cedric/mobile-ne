@@ -1,11 +1,8 @@
-import CustomButton from '@/components/CustomButton';
+import { PostComponent } from '@/components/Post';
 import useBookmarks from '@/hooks/useBookmarks';
 import usePosts from '@/hooks/usePosts';
 import { usernameState } from '@/store';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 import { ActivityIndicator, FlatList, Image, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRecoilValue } from 'recoil';
 
@@ -15,7 +12,6 @@ export default function Posts() {
   const username = useRecoilValue(usernameState);
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks();
 
-  const router = useRouter();
   return (
     <SafeAreaView
       className='bg-white h-full px-3 pt-3'
@@ -38,42 +34,18 @@ export default function Posts() {
             )}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <View className='p-3  rounded-lg mb-3 border border-gray-200 shadow-sm'>
-                <Text className='text-lg font-semibold'>{item.title}</Text>
-                <Text className='text-base text-gray-500 mb-3'>{item.body}</Text>
-                {!item.isCustom && <View className='flex flex-row items-center justify-between mt-3'>
-                  <CustomButton
-                    handlePress={() => router.push(`/post/${item.id}`)}
-                    title='Go to post'
-                    containerStyles=' w-[80%]'
-                    variant='outline'
-                    titleStyles='text-base'
-                  />
-                  {/* bookmark */}
-                  <TouchableOpacity
-                    onPress={() => {
-                      if (bookmarks.find(bookmark => bookmark.id === item.id)) {
-                        removeBookmark(item.id);
-                      } else {
-                        addBookmark(item);
-                      }
-                    }}
-                    className={`ml-3 rounded-md border p-2 border-violet-400 shrink-0
-                      ${bookmarks.find(bookmark => bookmark.id === item.id) ? 'bg-violet-400' : 'bg-white'}
-                        `}
-                  >
-                    <Ionicons
-                      name='bookmark-outline'
-                      size={20}
-                      color={bookmarks.find(bookmark => bookmark.id === item.id) ? 'white' : 'violet'}
-                      className='mt-3'
-                    />
-                  </TouchableOpacity>
-                </View>}
-                {
-                  item.isCustom && <Text className='font-semibold text-violet-700'>Added By You</Text>
-                }
-              </View>
+              <PostComponent
+                isBookmarked={bookmarks.find(bookmark => bookmark.id === item.id) ? true : false}
+                onBookmark={() => {
+                  if (bookmarks.find(bookmark => bookmark.id === item.id)) {
+                    removeBookmark(item.id);
+                  } else {
+                    addBookmark(item);
+                  }
+                }}
+                {...item}
+              />
+
             )}
             ListHeaderComponent={() => (
               <View className='mb-6'>
