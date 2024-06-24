@@ -39,7 +39,7 @@ const Onboarding = () => {
                         />
                         <CustomButton
                             title='Get Started'
-                            handlePress={() => router.push('/login')}
+                            handlePress={() => router.push('/posts')}
                         />
                     </View>
                 </View>

@@ -30,7 +30,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="add-post"
         options={{
-          title: 'Add',
+          title: 'Add Post',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'add' : 'add-outline'} color={color} />
           ),

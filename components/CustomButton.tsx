@@ -17,7 +17,7 @@ const CustomButton = ({ title, handlePress, variant = "primary", containerStyles
             className={`${variant === 'primary' ? "bg-violet-600" : "bg-white border border-violet-300"} w-full px-2 rounded-md flex flex-row justify-center items-center py-2 ${containerStyles}`}
         >
             <Text
-                className={`${variant === "primary" ? "text-white" : "text-cyan-500"} text-lg font-semibold ${titleStyles}`}
+                className={`${variant === "primary" ? "text-white" : "text-violet-500"} text-lg font-semibold ${titleStyles}`}
             >{title}</Text>
             {
                 isLoading &&

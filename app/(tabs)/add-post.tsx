@@ -1,6 +1,5 @@
 import CustomButton from '@/components/CustomButton'
 import CustomInput from '@/components/CustomInput'
-import useProducts from '@/hooks/useProducts'
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -9,7 +8,7 @@ import { validateProduct } from '@/lib/utils'
 
 const AddProduct = () => {
     const toast = useToast();
-    const { createProduct, creatingProduct } = useProducts();
+    // const { , creatingProduct } = useProducts();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -17,30 +16,30 @@ const AddProduct = () => {
         price: 0
     });
 
-    const handleSubmit = () => {
-        if (!formData.name || !formData.description || !formData.price) {
-            return toast.show("Please fill in all fields", {
-                type: 'danger'
-            });
-        }
-        const validationResults = validateProduct(formData);
-        if (!validationResults.name.valid) {
-            return toast.show(validationResults.name.message, {
-                type: 'danger'
-            });
-        }
-        if (!validationResults.description.valid) {
-            return toast.show(validationResults.description.message, {
-                type: 'danger'
-            });
-        }
-        if (!validationResults.price.valid) {
-            return toast.show(validationResults.price.message, {
-                type: 'danger'
-            });
-        }
-        createProduct(formData, true);
-    }
+    // const handleSubmit = () => {
+    //     if (!formData.name || !formData.description || !formData.price) {
+    //         return toast.show("Please fill in all fields", {
+    //             type: 'danger'
+    //         });
+    //     }
+    //     const validationResults = validateProduct(formData);
+    //     if (!validationResults.name.valid) {
+    //         return toast.show(validationResults.name.message, {
+    //             type: 'danger'
+    //         });
+    //     }
+    //     if (!validationResults.description.valid) {
+    //         return toast.show(validationResults.description.message, {
+    //             type: 'danger'
+    //         });
+    //     }
+    //     if (!validationResults.price.valid) {
+    //         return toast.show(validationResults.price.message, {
+    //             type: 'danger'
+    //         });
+    //     }
+    //     createProduct(formData, true);
+    // }
 
     return (
         <SafeAreaView className='p-3 px-5 h-full justify-center'>
@@ -76,8 +75,8 @@ const AddProduct = () => {
             </View>
             <CustomButton
                 title='Add Product'
-                handlePress={handleSubmit}
-                isLoading={creatingProduct}
+                handlePress={() => { }}
+                // isLoading={creatingProduct}
                 containerStyles='mt-8'
             />
         </SafeAreaView>

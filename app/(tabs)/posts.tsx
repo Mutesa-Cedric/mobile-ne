@@ -1,12 +1,14 @@
 import CustomButton from '@/components/CustomButton';
-import useProducts from '@/hooks/useProducts';
+import usePosts from '@/hooks/usePosts';
 import { useRouter } from 'expo-router';
 import { FlatList, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 export default function Posts() {
-  const { products } = useProducts();
+  const { posts } = usePosts();
+
+  console.log(posts);
 
   const router = useRouter();
   return (
@@ -14,7 +16,7 @@ export default function Posts() {
       className='bg-white h-full px-3 pt-3'
     >
       <FlatList
-        data={products}
+        data={posts}
         ListEmptyComponent={() => (
           <View className='h-full justify-center items-center bg-gray-50 rounded-lg'>
             <Image
@@ -25,15 +27,14 @@ export default function Posts() {
             <Text className='text-lg text-gray-700 pt-3 '>You haven't created any products</Text>
           </View>
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View className='p-3  rounded-lg mb-3 border border-gray-200 shadow-sm'>
-            <Text className='text-lg font-semibold'>{item.name}</Text>
-            <Text className='text-base text-gray-500 mb-3'>{item.description}</Text>
-            <Text className='text-base text-cyan-800'>${item.price}</Text>
+            <Text className='text-lg font-semibold'>{item.title}</Text>
+            <Text className='text-base text-gray-500 mb-3'>{item.body}</Text>
             <CustomButton
               handlePress={() => router.push(`/product/${item.id}`)}
-              title='View'
+              title='Go to post'
               containerStyles='mt-3'
               variant='outline'
               titleStyles='text-base'
