@@ -1,13 +1,11 @@
 import CustomButton from '@/components/CustomButton';
-import useAuth from '@/hooks/useAuth';
 import useProducts from '@/hooks/useProducts';
 import { useRouter } from 'expo-router';
 import { FlatList, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-export default function HomeScreen() {
-  const { user } = useAuth();
+export default function Posts() {
   const { products } = useProducts();
 
   const router = useRouter();
@@ -44,8 +42,8 @@ export default function HomeScreen() {
         )}
         ListHeaderComponent={() => (
           <View className='mb-6'>
-            <Text className='text-xl text-gray-800 font-rubiksemibold'>Welcome, {user?.name}</Text>
-            <Text className='text-gray-500 text-base'>Here are  the products you have created</Text>
+            <Text className='text-xl text-gray-800 font-rubiksemibold'>Welcome to our social media</Text>
+            <Text className='text-gray-500 text-base'>Here are some of the posts we've picked for you</Text>
           </View>
         )}
       />
