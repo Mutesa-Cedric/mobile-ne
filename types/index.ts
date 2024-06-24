@@ -4,6 +4,7 @@ export interface Post {
     title:string;
     body:string;
     postedBy?:User;
+    comments?:Comment[];
 }
 
 
@@ -33,4 +34,12 @@ export interface Company{
     name:string;
     catchPhrase:string;
     bs:string;
+}
+
+export interface Comment{
+    postId:number;
+    id:number;
+    name:string;
+    email:string;
+    body:string;
 }
