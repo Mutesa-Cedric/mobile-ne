@@ -14,7 +14,8 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         tabBarStyle: {
-          borderTopWidth: 1
+          borderTopEndRadius: 20,
+          borderTopStartRadius: 20,
         }
       }}
     >
