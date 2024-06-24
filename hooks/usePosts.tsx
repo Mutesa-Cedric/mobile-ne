@@ -47,8 +47,12 @@ export default function usePosts() {
         setAddingPost(true);
         try {
             const { data } = await axios.post("/posts", post);
+            console.log("data from adding post : ", data);
 
-            mutatePosts([...(posts || []), data]);
+            mutatePosts([{
+                ...data,
+                isCustom: true
+            }, ...(posts || [])], false);
 
             toast.show("Post added successfully", {
                 type: 'success'

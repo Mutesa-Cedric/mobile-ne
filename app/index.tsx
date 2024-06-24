@@ -1,12 +1,30 @@
 import CustomButton from '@/components/CustomButton'
 import CustomInput from '@/components/CustomInput'
+import { usernameState } from '@/store'
 import { useRouter } from 'expo-router'
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useToast } from 'react-native-toast-notifications'
+import { useRecoilState } from 'recoil'
 
 const Onboarding = () => {
+    const toast = useToast();
     const router = useRouter();
+    const [, setUsername] = useRecoilState(usernameState);
+    const [name, setName] = useState<string | null>(null);
+
+    const handleGetStarted = () => {
+        if (!name) {
+            toast.show("Please choose a username to continue", {
+                type: 'danger'
+            });
+            return;
+        }
+        setUsername(name);
+        router.push('/posts');
+    }
+
     return (
         <SafeAreaView
             className='bg-white'
@@ -20,7 +38,7 @@ const Onboarding = () => {
                     <Image
                         source={require("../assets/images/welcome.png")}
                         resizeMode='contain'
-                        className='w-[240px] h-[240px]'
+                        className='w-56 h-56 mt-8'
                     />
                     <Text className='text-xl font-bold font-rubik'>
                         <Text>Welcome to </Text>
@@ -33,13 +51,14 @@ const Onboarding = () => {
                     </Text>
                     <View className='mt-8 w-full'>
                         <CustomInput
+                            onChangeText={(val) => setName(val)}
                             label='Choose Username'
                             placeholder='Enter your username'
                             containerStyles='mb-6'
                         />
                         <CustomButton
                             title='Get Started'
-                            handlePress={() => router.push('/posts')}
+                            handlePress={handleGetStarted}
                         />
                     </View>
                 </View>
