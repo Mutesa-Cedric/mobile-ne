@@ -52,7 +52,7 @@ const PostView = () => {
     return (
         <SafeAreaView>
             {fetchingPost ?
-                <View className='flex-1 justify-center items-center'>
+                <View className='flex-1 justify-center items-center h-screen py-12'>
                     <ActivityIndicator size='large' color='blue' />
                 </View>
                 : post &&

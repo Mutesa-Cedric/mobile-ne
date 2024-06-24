@@ -1,5 +1,6 @@
 import CustomButton from '@/components/CustomButton'
 import CustomInput from '@/components/CustomInput'
+import WelcomeSvg from '@/components/WelcomeSvg'
 import { usernameState } from '@/store'
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
@@ -36,9 +37,9 @@ const Onboarding = () => {
             >
                 <View className='h-full items-center justify-center px-6 font-rubik'>
                     <Image
-                        source={require("../assets/images/welcome.png")}
-                        resizeMode='contain'
-                        className='w-56 h-56 mt-8'
+                        source={require('@/assets/images/welcome.png')}
+                        style={{ width: 200, height: 200 }}
+                        className='rounded-full'
                     />
                     <Text className='text-xl font-bold font-rubik'>
                         <Text>Welcome to </Text>
